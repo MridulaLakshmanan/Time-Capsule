@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Journal Entry</title>
+  <style>
+    /* ====== Dashboard Color Palette ====== */
+    :root {
+      --bg: #1e1e2f;        /* Dark background */
+      --primary: #6c5ce7;   /* Purple */
+      --secondary: #00cec9; /* Teal */
+      --accent: #fab1a0;    /* Peach */
+      --text: #f5f5f5;      /* Light text */
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .editor {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    .title-input {
+      font-size: 2rem;
+      padding: 10px;
+      border: none;
+      border-bottom: 2px solid var(--secondary);
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .content-input {
+      flex: 1;
+      font-size: 1.2rem;
+      padding: 15px;
+      border: none;
+      outline: none;
+      resize: none;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .options {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .options select,
+    .options input {
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid var(--secondary);
+      outline: none;
+      background: #2d2d44;
+      color: var(--text);
+      flex: 1;
+      min-width: 150px;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      background: #2d2d44;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .cancel {
+      background: var(--accent);
+      color: black;
+    }
+
+    .save {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .save:hover {
+      background: #00b3af;
+    }
+  </style>
+</head>
+<body>
+  <header>✍️ New Journal Entry</header>
+
+  <div class="editor">
+    <input type="text" class="title-input" placeholder="Your Title...">
+    <textarea class="content-input" placeholder="Start writing your thoughts..."></textarea>
+
+    <div class="options">
+      <select>
+        <option value="">Mood</option>
+        <option>😊 Happy</option>
+        <option>😔 Sad</option>
+        <option>😡 Angry</option>
+        <option>😌 Calm</option>
+      </select>
+      <input type="date">
+      <input type="time">
+      <input type="password" placeholder="Set Password">
+    </div>
+  </div>
+
+  <footer>
+    <button class="cancel" onclick="window.location.href='dashboard.html'">Cancel</button>
+    <button class="save" onclick="saveEntry()">Save</button>
+  </footer>
+
+  <script>
+    function saveEntry() {
+      const title = document.querySelector('.title-input').value;
+      const content = document.querySelector('.content-input').value;
+
+      if (!title || !content) {
+        alert("Please fill in Title and Content!");
+        return;
+      }
+
+      alert("✅ Entry Saved! (Later we’ll link this to Dashboard’s Recent Journals)");
+      window.location.href = "dashboard.html"; // Redirect back after saving
+    }
+  </script>
+</body>
+</html>
