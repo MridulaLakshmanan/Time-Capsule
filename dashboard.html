@@ -5,28 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>⏳ Time Capsule Journal</title>
 
-<!-- Dancing Script (all text) -->
+<!-- Dancing Script -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    /* your parchment palette */
-    --bg: #FAF5E6;            /* parchment base */
-    --ink: #3b1f10;           /* warm brown text */
-    --ink-soft:#6e3f22;       /* softer brown */
-    --brand:#3F2B79;          /* deep purple header */
-    --brand-ink:#fff;         /* header text */
-    --btn:#8F1D1D;            /* deep red button */
-    --btn-ink:#fff;
-    --sidebar:#2a1f3e;        /* drawer background (deep plum) */
-    --sidebar-ink:#f6eadd;    /* drawer text */
-    --sidebar-muted:#d9c7b6;
-    --accent:#d2a66d;         /* gold accent */
+    --paper-base: #f3ebd9;
+    --paper-top:  #efe4cf;
+    --paper-bottom:#e6d7b8;
+
+    --ink:        #3b1f10;
+    --ink-soft:   #6e3f22;
+
+    --accent:     #d2a66d;
+    --brand:      #3F2B79;
+    --brand-ink:  #ffffff;
+
+    --btn:        #8F1D1D;
+    --btn-ink:    #ffffff;
+
+    --sidebar:      #2a1f3e;
+    --sidebar-ink:  #f6eadd;
+
     --shadow: 0 12px 40px rgba(0,0,0,.12);
+    --bg: var(--paper-base);
   }
 
   *{ box-sizing:border-box; }
   html,body{ height:100%; }
+
   body{
     margin:0;
     font-family: "Dancing Script", cursive;
@@ -38,200 +45,246 @@
       var(--bg);
   }
 
-  /* Header (brand + nav) */
+  /* Header */
   .header{
     position:sticky; top:0; z-index:1001;
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; justify-content:space-between; align-items:center;
     padding:14px 22px;
     background:var(--brand);
     color:var(--brand-ink);
     box-shadow:var(--shadow);
   }
+
   .brand{
     display:flex; align-items:center; gap:.6rem;
     cursor:pointer; user-select:none;
   }
+
   .hourglass{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:38px; height:38px; border-radius:10px;
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:10px;
     background:rgba(255,255,255,.12);
     border:1px solid rgba(255,255,255,.25);
     transition:transform .35s ease;
   }
+
   .brand.open .hourglass{ transform:rotate(180deg); }
-  .brand-title{
-    font-size:28px; letter-spacing:.5px;
-  }
+
+  .brand-title{ font-size:28px; }
 
   .auth{
-    display:flex; gap:22px; align-items:center;
+    display:flex; gap:22px;
   }
+
   .auth a{
-    color:var(--brand-ink); text-decoration:none; font-size:22px;
+    color:var(--brand-ink);
+    text-decoration:none;
+    font-size:22px;
     position:relative;
   }
+
   .auth a::after{
-    content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px;
-    background:rgba(255,255,255,.7); transform:scaleX(0); transform-origin:left;
-    transition:transform .25s ease;
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-3px;
+    height:2px;
+    background:rgba(255,255,255,.7);
+    transform:scaleX(0);
+    transition:.25s ease;
   }
+
   .auth a:hover::after{ transform:scaleX(1); }
 
-  /* Sidebar (drawer) */
+  /* Sidebar */
   .sidebar{
-    position:fixed; inset:0 auto 0 0; width:280px;
+    position:fixed;
+    inset:0 auto 0 0;
+    width:280px;
     background:var(--sidebar);
     color:var(--sidebar-ink);
     transform:translateX(-100%);
-    transition:transform .35s ease;
+    transition:.35s ease;
     z-index:1000;
-    display:flex; flex-direction:column;
-    padding:18px 18px 12px;
+    display:flex;
+    flex-direction:column;
+    padding:18px;
     box-shadow:var(--shadow);
   }
+
   .sidebar.open{ transform:translateX(0); }
+
   .side-head{
-    display:flex; align-items:center; gap:.6rem;
-    color:#f8efe5; font-size:26px; margin:6px 4px 22px;
-    user-select:none;
+    display:flex; gap:.6rem; align-items:center;
+    font-size:26px;
+    margin-bottom:22px;
   }
-  .side-head .hg-small{
-    width:28px; height:28px; border-radius:8px;
-    display:inline-flex; align-items:center; justify-content:center;
+
+  .hg-small{
+    width:28px; height:28px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:8px;
     background:rgba(255,255,255,.12);
     border:1px solid rgba(255,255,255,.25);
   }
 
   .menu{ list-style:none; padding:0; margin:0; }
+
   .menu li a{
-    display:flex; align-items:center; gap:12px;
-    padding:14px 12px;
-    border-radius:12px; color:var(--sidebar-ink); text-decoration:none;
+    display:flex; gap:12px; align-items:center;
+    padding:14px;
     font-size:22px;
-    transition:background .2s ease, transform .06s ease;
+    border-radius:12px;
+    color:var(--sidebar-ink);
+    text-decoration:none;
+    transition:.2s ease;
   }
+
   .menu li a:hover{ background:rgba(255,255,255,.08); }
-  .menu li a:active{ transform:translateY(1px); }
-  .menu .emoji{ width:28px; display:inline-block; text-align:center; }
+
+  .emoji{ width:28px; text-align:center; }
 
   .logout{
-    margin-top:auto; padding-top:12px; border-top:1px dashed rgba(255,255,255,.15);
+    margin-top:auto;
+    border-top:1px dashed rgba(255,255,255,.15);
+    padding-top:12px;
   }
+
   .logout a{
-    display:flex; align-items:center; gap:12px;
-    color:var(--accent); text-decoration:none; padding:14px 12px;
-    border-radius:12px; font-size:22px;
+    color:var(--accent);
+    text-decoration:none;
+    font-size:22px;
+    display:flex;
+    gap:12px;
+    padding:14px;
   }
-  .logout a:hover{ background:rgba(255,255,255,.06); }
 
-  /* Overlay (click to close) */
+  /* Overlay */
   .overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.25);
-    opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:999;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.25);
+    opacity:0;
+    pointer-events:none;
+    transition:.25s ease;
+    z-index:999;
   }
-  .overlay.show{ opacity:1; pointer-events:auto; }
 
-  /* Hero (center welcome, quote & button) */
+  .overlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Hero */
   .hero{
-    max-width:1100px; margin:70px auto; padding:0 22px; text-align:center;
+    max-width:1100px;
+    margin:70px auto;
+    padding:0 22px;
+    text-align:center;
   }
-  .hero h1{
-    font-size:52px; margin:6px 0 20px; color:var(--ink);
-    text-shadow:0 1px 0 rgba(255,255,255,.8);
-  }
-  .hero p.lead{
-    font-size:28px; color:var(--ink-soft); margin:0 auto 18px; max-width:1000px;
-  }
-  .hero p.quote{
-    font-size:30px; color:var(--ink); margin:18px auto 28px; max-width:980px;
-  }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:24px; padding:14px 28px; border-radius:14px;
-    background:var(--btn); color:var(--btn-ink); border:2px solid #5b0e0e;
-    box-shadow:0 4px 0 #5b0e0e, 0 10px 24px rgba(0,0,0,.18);
-    cursor:pointer; user-select:none;
-    transition:transform .06s ease, box-shadow .12s ease;
-  }
-  .btn:active{ transform:translateY(2px); box-shadow:0 2px 0 #5b0e0e, 0 6px 16px rgba(0,0,0,.18); }
 
-  /* Responsive tweaks */
-  @media (max-width:720px){
+  .hero h1{ font-size:52px; }
+
+  .hero p{
+    font-size:28px;
+    color:var(--ink-soft);
+  }
+
+  .hero .quote{
+    font-size:30px;
+    margin:22px 0;
+    color:var(--ink);
+  }
+
+  .btn{
+    font-size:24px;
+    padding:14px 28px;
+    border-radius:14px;
+    background:var(--btn);
+    color:var(--btn-ink);
+    border:2px solid #5b0e0e;
+    text-decoration:none;
+    box-shadow:0 4px 0 #5b0e0e;
+  }
+
+  @media(max-width:720px){
     .brand-title{ font-size:24px; }
-    .auth a{ font-size:20px; }
     .hero h1{ font-size:42px; }
-    .hero p.lead, .hero p.quote{ font-size:24px; }
   }
 </style>
 </head>
+
 <body>
 
-  <!-- Header / Brand + Auth -->
-  <header class="header">
-    <div id="brand" class="brand" aria-label="Toggle dashboard">
-      <span class="hourglass">⏳</span>
-      <span class="brand-title">Time Capsule Journal</span>
-    </div>
-    <nav class="auth">
-      <a href="cap.html">Login</a>
-      <a href="signup.html">Signup</a>
-    </nav>
-  </header>
+<header class="header">
+  <div id="brand" class="brand">
+    <span class="hourglass">⏳</span>
+    <span class="brand-title">Time Capsule Journal</span>
+  </div>
 
-  <!-- Sidebar (Dashboard) -->
-  <aside id="sidebar" class="sidebar" aria-label="Dashboard">
-    <div class="side-head">
-      <span class="hg-small">⏳</span>
-      <span>Time Capsule Journal</span>
-    </div>
+  <nav class="auth">
+    <a href="cap.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </nav>
+</header>
 
-    <ul class="menu">
-      <li><a href="#"><span class="emoji">🏠</span>Home</a></li>
-      <li><a href="#"><span class="emoji">👤</span>Profile</a></li>
-      <li><a href="#"><span class="emoji">📝</span>Entries</a></li>
-      <li><a href="#"><span class="emoji">⏲️</span>Timed Journals</a></li>
-      <li><a href="#"><span class="emoji">🔒</span>Locked Journals</a></li>
-    </ul>
+<aside id="sidebar" class="sidebar">
+  <div class="side-head">
+    <span class="hg-small">⏳</span>
+    <span>Time Capsule Journal</span>
+  </div>
 
-    <div class="logout">
-      <a href="#"><span class="emoji">🚪</span>Logout</a>
-    </div>
-  </aside>
+  <ul class="menu">
+    <li><a href="#"><span class="emoji">🏠</span>Home</a></li>
+    <li><a href="#"><span class="emoji">👤</span>Profile</a></li>
+    <li><a href="#"><span class="emoji">📝</span>Entries</a></li>
+    <li><a href="#"><span class="emoji">⏲️</span>Timed Journals</a></li>
+    <li><a href="#"><span class="emoji">🔒</span>Locked Journals</a></li>
+  </ul>
 
-  <!-- Backdrop -->
-  <div id="overlay" class="overlay" aria-hidden="true"></div>
+  <div class="logout">
+    <a href="#"><span class="emoji">🚪</span>Logout</a>
+  </div>
+</aside>
 
-  <!-- Main / Center Content -->
-  <main class="hero">
-    <h1>📖 Welcome to Your Time Capsule</h1>
+<div id="overlay" class="overlay"></div>
 
-    <p class="lead">
-      Preserve your moments, explore your past entries, and unlock memories whenever you choose.
-      A safe place for your heartfelt notes, future letters, and timeless secrets.
-    </p>
+<main class="hero">
+  <h1>📖 Welcome to Your Time Capsule</h1>
 
-    <p class="quote">
-      “Every day is a page in your story —
-      <br/>make it worth remembering.”
-    </p>
+  <p>
+    Preserve your moments, explore your past entries,
+    and unlock memories whenever you choose.
+  </p>
 
-    <button class="btn" type="button">➕ New Entry</button>
-  </main>
+  <p class="quote">
+    “Every day is a page in your story —
+    <br>make it worth remembering.”
+  </p>
+
+  <a class="btn" href="entry.html">➕ New Entry</a>
+</main>
 
 <script>
-  const brand   = document.getElementById('brand');
+  const brand = document.getElementById('brand');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
 
   function toggleSidebar(){
     sidebar.classList.toggle('open');
-    brand.classList.toggle('open');   // rotates ⏳
+    brand.classList.toggle('open');
     overlay.classList.toggle('show');
   }
 
   brand.addEventListener('click', toggleSidebar);
   overlay.addEventListener('click', toggleSidebar);
-  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && sidebar.classList.contains('open')) toggleSidebar(); });
+
+  window.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && sidebar.classList.contains('open')){
+      toggleSidebar();
+    }
+  });
 </script>
+
 </body>
 </html>
