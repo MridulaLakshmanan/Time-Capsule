@@ -53,18 +53,7 @@ The project focuses on:
 
 ## 📂 Project Structure  
 
-Time-Capsule/
-│
-├── index.html # Landing page
-├── signup.html # User signup page
-├── entry.html # Memory input page
-├── dashboard.html # Memory display/dashboard
-├── cap.html # Core functionality page
-├── cap.js # JavaScript logic
-├── style.css # Styling
-├── assets_* # Additional resources
-├── .gitignore
-└── README.md
+<img width="434" height="337" alt="Screenshot 2026-04-01 at 11 19 16 PM" src="https://github.com/user-attachments/assets/6941ce2c-6d6e-4aca-b540-a08423a54a08" />
 
 ## Application Flow
 - User lands on index page
